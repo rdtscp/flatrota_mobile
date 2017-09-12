@@ -22,16 +22,20 @@ class Homepage extends Component {
 
   render() {
     return (
-      <View style={{backgroundColor: "black"}}>
+      <View style={{backgroundColor: "black", flex: 1}}>
         <NavigationBar
           title={{ title: 'Home', tintColor: 'white', }}
-          leftButton={{ title: 'Add Task', }}
+//           leftButton={{ title: 'Add Task', }}
           rightButton={{ title: 'Add Item', }}
           style={{ backgroundColor: "black", }}
           statusBar={{ tintColor: "black", }}
         />
         <ScrollView>
           <Item itemname="Toilet Paper" />
+          <Item itemname="Kitchen Roll" />
+          <Item itemname="Hand Soap" />
+          <Item itemname="Bin Bags" />
+          <Item itemname="Dish Soap" />
         </ScrollView>
       </View>
     )
