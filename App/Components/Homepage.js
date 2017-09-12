@@ -4,7 +4,10 @@ import {
   View,
   ScrollView,
   Text,
+  SegmentedControlIOS,
 } from 'react-native'
+
+import Item from './Item.js';
 
 class Homepage extends Component {
 
@@ -28,59 +31,7 @@ class Homepage extends Component {
           statusBar={{ tintColor: "black", }}
         />
         <ScrollView>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          <Text>Line</Text>
-          
+          <Item itemname="Toilet Paper" />
         </ScrollView>
       </View>
     )
