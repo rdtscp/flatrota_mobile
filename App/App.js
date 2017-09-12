@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 
 import Login from './Components/Login.js';
+import Homepage from './Components/Homepage.js';
 import axios from 'axios';
 
 class App extends Component {
@@ -59,9 +60,7 @@ class App extends Component {
       } else {
           if (this.state.authenticated) {
               return (
-                  <View style={styles.container}>
-                    <Text>Logged In</Text>
-                  </View>
+                  <Homepage />
               );
           } else {
               return (
