@@ -17,7 +17,7 @@ class Item extends Component {
   constructor(props) {
       super(props)
       this.state = {
-          
+        modalVisible: false
       }
   }
 
@@ -47,7 +47,7 @@ class Item extends Component {
             <Modal 
               animated={true}
               transparent={false}
-              visible={(this.state && this.state.modalVisible) || true }>
+              visible={(this.state && this.state.modalVisible) }>
               <View style={styles.container}>
                   <Text>Quantity</Text>
                   <TextInput
