@@ -1,6 +1,7 @@
 import NavigationBar from 'react-native-navbar'
 import React, { Component, } from 'react'
 import {
+  Alert,
   View,
   ScrollView,
   Text,
@@ -8,6 +9,13 @@ import {
 } from 'react-native'
 
 import Item from './Item.js';
+
+const addItem = {
+  title: 'Add Item',
+  handler: () => {
+    Alert.alert('Create new item');
+  }
+}
 
 class Homepage extends Component {
 
@@ -20,13 +28,14 @@ class Homepage extends Component {
     this.state = {}
   }
 
+  
+
   render() {
     return (
       <View style={{backgroundColor: "black", flex: 1}}>
         <NavigationBar
-          title={{ title: 'Home', tintColor: 'white', }}
-//           leftButton={{ title: 'Add Task', }}
-          rightButton={{ title: 'Add Item', }}
+          title={{ title: 'Communal Resources', tintColor: 'white', }}
+          rightButton={addItem}
           style={{ backgroundColor: "black", }}
           statusBar={{ tintColor: "black", }}
         />
