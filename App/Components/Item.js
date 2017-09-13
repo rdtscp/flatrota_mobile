@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
   Modal,
+  Picker,
 } from 'react-native'
 
 class Item extends Component {
@@ -25,7 +26,7 @@ class Item extends Component {
   }
 
   alertTopup() {
-      Alert.alert('alertTopup');
+      Alert.alert('Flatmate has been sent a notification!');
   }
 
   render() {
@@ -59,41 +60,44 @@ class Item extends Component {
 class ItemTopup extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            pickerValue: 0
+        }
     }
 
     topup() {
-        Alert.alert('Thanks for topping up!');
+        // Send network request.
+        var quantity = this.state.pickerValue;
+        // Close modal.
         this.props.toggle();
     }
 
     render() {
-        console.log('rendering modal')
-        console.log(this.props.visible)
         return (
               <Modal
                 transparent={false}
                 visible={this.props.visible}>
-                <View style={styles.container}>
+                <View style={styles.modal}>
                     <Text>Quantity</Text>
-                    <TextInput
+                    <Picker 
                       style={{
-                        height: 30, 
-                        width:  50 ,
-                        borderWidth: 1,
-                        borderColor: "rgba(0,0,0,0.5)",
+                        width: 50,
                       }}
-                      placeholder={''}
-                      placeholderTextColor={"rgba(198,198,204,1)"}
-                      onChangeText={(text) => {this.setState({text})}}
-                      onSubmitEditing={this.authenticate}
-                      value={(this.state && this.state.text) || ''}
-                    />
+                      selectedValue={(this.state && this.state.pickerValue) || '0'}
+                      onValueChange={(value) => {
+                        this.setState({pickerValue: value})
+                      }}>
+                      <Picker.Item label={'0'} value={'0'} />
+                      <Picker.Item label={'1'} value={'1'} />
+                      <Picker.Item label={'2'} value={'2'} />
+                      <Picker.Item label={'3'} value={'3'} />
+                    </Picker>
                     <Button
                       onPress={this.topup.bind(this)}
-                      title="OK"
-                      color="#841584"
-                      accessibilityLabel="Learn more about this purple button"
+                      title="Submit"
+                      color="blue"
+                      accessibilityLabel="Submit"
                     />
                 </View>
               </Modal>
@@ -108,6 +112,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
   }
 });
 
