@@ -41,8 +41,6 @@ class App extends Component {
     }
 
     render() {
-      console.log('State:')
-      console.log(this.state)
       if (this.state.loading) {
           return (
               <View style={styles.container}>
