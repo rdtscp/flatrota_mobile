@@ -45,7 +45,7 @@ class Login extends Component {
               <Button
                 onPress={this.authenticate}
                 title="OK"
-                color="#841584"
+                color="blue"
                 accessibilityLabel="Learn more about this purple button"
               />
             </View>
