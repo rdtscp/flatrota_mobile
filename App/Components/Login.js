@@ -22,7 +22,7 @@ class Login extends Component {
     }
   
     authenticate = () => {
-        this.props.authenticate();
+        this.props.authenticate(this.state.text);
     }
 
     render() {
@@ -46,7 +46,7 @@ class Login extends Component {
                 onPress={this.authenticate}
                 title="OK"
                 color="blue"
-                accessibilityLabel="Learn more about this purple button"
+                accessibilityLabel="Submit Username"
               />
             </View>
         );
