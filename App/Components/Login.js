@@ -21,16 +21,20 @@ class Login extends Component {
       this.state = {}
     }
   
-    authenticate = () => {
-        this.props.authenticate(this.state.text);
+    login = () => {
+      this.props.login(this.state.username, this.state.password);
+    }
+    register = () => {
+        this.props.register(this.state.username, this.state.password);
     }
 
     render() {
         return (
             <View style={styles.container}>
-              <Text>Enter your name</Text>
+              <Text>Enter your credentials</Text>
               <TextInput
                 style={{
+                  marginTop: 5,
                   height: 30, 
                   width:  300 ,
                   borderWidth: 1,
@@ -38,15 +42,38 @@ class Login extends Component {
                 }}
                 placeholder={'Username'}
                 placeholderTextColor={"rgba(198,198,204,1)"}
-                onChangeText={(text) => {this.setState({text})}}
+                onChangeText={(username) => {this.setState({username})}}
                 onSubmitEditing={this.authenticate}
-                value={(this.state && this.state.text) || ''}
+                value={(this.state && this.state.username) || ''}
+              />
+              <TextInput
+                style={{
+                  height: 30, 
+                  width:  300 ,
+                  borderWidth: 1,
+                  borderColor: "rgba(0,0,0,0.5)",
+                }}
+                placeholder={'Password'}
+                placeholderTextColor={"rgba(198,198,204,1)"}
+                onChangeText={(password) => {this.setState({password})}}
+                onSubmitEditing={this.authenticate}
+                secureTextEntry={true}
+                value={(this.state && this.state.password) || ''}
               />
               <Button
-                onPress={this.authenticate}
-                title="OK"
+                onPress={this.login}
+                title="Login"
                 color="blue"
-                accessibilityLabel="Submit Username"
+                accessibilityLabel="Submit Login"
+              />
+              <Button
+                style={{
+                  marginTop: 5
+                }}
+                onPress={this.register}
+                title="Register"
+                color="blue"
+                accessibilityLabel="Submit Register"
               />
             </View>
         );
