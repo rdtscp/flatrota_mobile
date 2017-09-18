@@ -31,6 +31,13 @@ class Homepage extends Component {
   
 
   render() {
+    var sampleItem = {
+      name: 'Kitchen Roll',
+      price: '0.99',
+      description: 'Absorbent kitchen roll, usually found near the self service checkouts.',
+      quantity: '2',
+      rota: ['Alex', 'Anthony', 'Caitlin', 'Justina']
+    }
     return (
       <View style={{backgroundColor: "black", flex: 1}}>
         <NavigationBar
@@ -40,11 +47,12 @@ class Homepage extends Component {
           statusBar={{ tintColor: "black", }}
         />
         <ScrollView>
-          <Item itemname="Toilet Paper" />
-          <Item itemname="Kitchen Roll" />
-          <Item itemname="Hand Soap" />
-          <Item itemname="Bin Bags" />
-          <Item itemname="Dish Soap" />
+          <Item item={sampleItem} />
+          <Item item={sampleItem} />
+          <Item item={sampleItem} />
+          <Item item={sampleItem} />
+          <Item item={sampleItem} />
+          <Item item={sampleItem} />
         </ScrollView>
       </View>
     )
