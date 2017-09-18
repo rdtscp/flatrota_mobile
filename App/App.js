@@ -15,6 +15,7 @@ import Login from './Components/Login.js';
 import Homepage from './Components/Homepage.js';
 import axios from 'axios';
 
+console.disableYellowBox = true;
 
 class App extends Component {
 
@@ -70,11 +71,11 @@ class App extends Component {
             })
         }, 1000);
     }
-  
-    // Posts Login details to backend.
-    authenticate = (username) => {
+
+    login = (username, password) => {
         axios.post('http:localhost:1337/login', {
-            username: username
+            username: username,
+            password: password
         })
         .then((response) => {
             res = response.data
@@ -89,8 +90,7 @@ class App extends Component {
                             loading: false,
                             authenticated: false
                         });
-                    }
-                    else {
+                    } else {
                         console.log('Stored token: ' + res.token);
                         // Inform App we have stopped loading, and we are authenticated.
                         this.setState({
@@ -107,6 +107,50 @@ class App extends Component {
                 })
             }
         })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+  
+    // Posts Login details to backend.
+    register = (username, password) => {
+        axios.post('http:localhost:1337/register', {
+            username: username,
+            password: password
+        })
+        .then((response) => {
+            res = response.data
+            // If the response contains a token.
+            if (res.token) {
+                // Store the token in storage.
+                AsyncStorage.setItem('authToken', JSON.stringify(res.token), (err) => {
+                    if (err) {
+                        console.log(err);
+                        // Inform App we have stopped loading, but we are not authenticated.
+                        this.setState({
+                            loading: false,
+                            authenticated: false
+                        });
+                    } else {
+                        console.log('Stored token: ' + res.token);
+                        // Inform App we have stopped loading, and we are authenticated.
+                        this.setState({
+                            loading: false,
+                            authenticated: true
+                        });
+                    }
+                });
+            } else {
+                // There was no token in response: Inform App we have stopped loading, and we are not authenticated.
+                this.setState({
+                    loading: false,
+                    authenticated: false
+                })
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }
 
     render() {
@@ -131,7 +175,7 @@ class App extends Component {
               );
           } else {
               return (
-                  <Login authenticate={this.authenticate} />
+                  <Login login={this.login} register={this.register} />
               );
           }
       }
