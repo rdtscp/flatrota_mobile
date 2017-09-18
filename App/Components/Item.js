@@ -19,39 +19,49 @@ class Item extends Component {
       }
   }
 
-  toggleModal() {
+  topupModal() {
       this.setState(previousState => {
           return { modalVisible: !previousState.modalVisible };
       });
   }
 
-  alertTopup() {
+  requestTopup() {
       Alert.alert('Flatmate has been sent a notification!');
+  }
+
+  infoPopup = () => {
+      Alert.alert('Name: ' + this.props.item.name + '\nPrice: £' + this.props.item.price + '\nDesc: ' + this.props.item.description + '\nQuantity: ' + this.props.item.quantity);
   }
 
   render() {
       return (
-          <View style={{ padding: 20, margin: 5, height: 75, flex: 1, flexDirection: "row", justifyContent: 'center', backgroundColor: "white" }}>
+          <View style={{ padding: 10, margin: 5, height: 75, flex: 1, flexDirection: "row", justifyContent: 'center', backgroundColor: "white" }}>
               <View style={{ width: 100, height: 75, paddingRight: 5 }}>
                   <Button
-                      onPress={this.toggleModal.bind(this)}
+                      onPress={this.topupModal.bind(this)}
                       title="Top Up +"
                       color="green"
                       accessibilityLabel="Declare that you have bought another item."
                   />
               </View>
               <View style={{ width: 100, height: 75 }}>
-                  <Text style={{ color: "black", textAlign: "center", fontSize: 18}} >{this.props.itemname}</Text>
+                  {/* <Text style={{ color: "black", textAlign: "center", fontSize: 18}} >{this.props.itemname}</Text> */}
+                  <Button
+                      onPress={this.infoPopup}
+                      title={this.props.item.name}
+                      color="black"
+                      accessibilityLabel="Get info about this item."
+                  />
               </View>
               <View style={{ width: 100, height: 75, paddingLeft: 5 }}>
                   <Button
-                      onPress={this.alertTopup}
+                      onPress={this.requestTopup}
                       title="Run Out!"
                       color="red"
-                      accessibilityLabel="Learn more about this purple button"
+                      accessibilityLabel="Request topup of this item."
                   />
               </View>
-              <ItemTopup toggle={this.toggleModal.bind(this)} visible={this.state.modalVisible} />
+              <ItemTopup toggle={this.topupModal.bind(this)} visible={this.state.modalVisible} />
           </View>
       );
   }
