@@ -32,6 +32,7 @@ class App extends Component {
         // Get our authToken.
         AsyncStorage.getItem('authToken', (err, authToken) => {
             if (err) console.log(err);
+            var authToken = JSON.parse(authToken);
             // If we have a token.
             if (authToken !== null){
                 this.setState({
@@ -51,19 +52,19 @@ class App extends Component {
     // Checks if our authToken is still valid.
     checkToken = (authToken) => {
         // Schedule a check for every 1 second.
-        var tokenCheck = setInterval((authToken) => {
+        var tokenCheck = setInterval(() => {
             // Post our authToken to the backend.
             axios.post('http://localhost:1337/token', {
-                token: authToken
+                authToken: authToken
             })
             .then((response) => {
                 res = response.data;
-                // Mark that we have finished loading, and store validity of our token.
+                // Mark that we have finished loading, and store validity of our authToken.
                 this.setState({
                     loading: false,
                     authenticated: res.valid
                 });
-                // Stop trying to check token.
+                // Stop trying to check authToken.
                 clearInterval(tokenCheck)
             })
             .catch((err) => {
@@ -72,6 +73,7 @@ class App extends Component {
         }, 1000);
     }
 
+    // Posts Login details to backend.
     login = (username, password) => {
         axios.post('http:localhost:1337/login', {
             username: username,
@@ -79,10 +81,10 @@ class App extends Component {
         })
         .then((response) => {
             res = response.data
-            // If the response contains a token.
-            if (res.token) {
-                // Store the token in storage.
-                AsyncStorage.setItem('authToken', JSON.stringify(res.token), (err) => {
+            // If the response contains a authToken.
+            if (res.authToken) {
+                // Store the authToken in storage.
+                AsyncStorage.setItem('authToken', res.authToken, (err) => {
                     if (err) {
                         console.log(err);
                         // Inform App we have stopped loading, but we are not authenticated.
@@ -91,7 +93,7 @@ class App extends Component {
                             authenticated: false
                         });
                     } else {
-                        console.log('Stored token: ' + res.token);
+                        console.log('Stored authToken: ' + res.authToken);
                         // Inform App we have stopped loading, and we are authenticated.
                         this.setState({
                             loading: false,
@@ -100,7 +102,7 @@ class App extends Component {
                     }
                 });
             } else {
-                // There was no token in response: Inform App we have stopped loading, and we are not authenticated.
+                // There was no authToken in response: Inform App we have stopped loading, and we are not authenticated.
                 this.setState({
                     loading: false,
                     authenticated: false
@@ -112,18 +114,18 @@ class App extends Component {
         });
     }
   
-    // Posts Login details to backend.
+    // Posts Register details to backend.
     register = (username, password) => {
         axios.post('http:localhost:1337/register', {
             username: username,
             password: password
         })
         .then((response) => {
-            res = response.data
-            // If the response contains a token.
-            if (res.token) {
-                // Store the token in storage.
-                AsyncStorage.setItem('authToken', JSON.stringify(res.token), (err) => {
+            res = response.data;
+            // If the response contains a authToken.
+            if (res.authToken) {
+                // Store the tokauthTokenen in storage.
+                AsyncStorage.setItem('authToken', JSON.stringify(res.authToken), (err) => {
                     if (err) {
                         console.log(err);
                         // Inform App we have stopped loading, but we are not authenticated.
@@ -132,7 +134,7 @@ class App extends Component {
                             authenticated: false
                         });
                     } else {
-                        console.log('Stored token: ' + res.token);
+                        console.log('Stored authToken: ' + res.authToken);
                         // Inform App we have stopped loading, and we are authenticated.
                         this.setState({
                             loading: false,
@@ -141,7 +143,7 @@ class App extends Component {
                     }
                 });
             } else {
-                // There was no token in response: Inform App we have stopped loading, and we are not authenticated.
+                // There was no authToken in response: Inform App we have stopped loading, and we are not authenticated.
                 this.setState({
                     loading: false,
                     authenticated: false
