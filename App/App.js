@@ -37,7 +37,7 @@ class App extends Component {
         // Configure Notifications.
         PushNotification.configure({
             onNotification: function(notification) {
-                console.log( 'NOTIFICATION:', notification );
+                console.log('RECEIVED NOTIFICATION');
             },
             requestPermissions: true,
         })
@@ -47,7 +47,7 @@ class App extends Component {
             // var authToken = JSON.parse(authToken);
             // If we have a token.
             if (authToken !== null){
-                this.setState({
+                this.setState({ 
                     authToken: authToken
                 });
                 this.checkToken(authToken);
@@ -101,6 +101,7 @@ class App extends Component {
             PushNotification.localNotification({
                 message: 'It is your turn to buy: \n' + data.quantity + ' of ' + data.resource
             });
+            PushNotification.setApplicationIconBadgeNumber(1)
             Alert.alert('It is your turn to buy: \n' + data.quantity + ' of ' + data.resource);
             socket.emit('received_notif', data);
         })
@@ -149,7 +150,7 @@ class App extends Component {
   
     // Posts Register details to backend.
     register = (username, password) => {
-        axios.post('http:192.168.1.121:1337/register', {
+        axios.post('http://192.168.1.121:1337/register', {
             username: username,
             password: password
         })
