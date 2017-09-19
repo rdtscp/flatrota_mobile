@@ -61,7 +61,7 @@ class Item extends Component {
                       accessibilityLabel="Request topup of this item."
                   />
               </View>
-              <ItemTopup toggle={this.topupModal.bind(this)} visible={this.state.modalVisible} />
+              <ItemTopup toggle={this.topupModal.bind(this)} visible={this.state.modalVisible} id={this.props.item._id} authToken={this.props.authToken} />
           </View>
       );
   }
@@ -78,7 +78,11 @@ class ItemTopup extends Component {
 
     topup() {
         // Send network request.
-        var quantity = this.state.pickerValue;
+        var quantity  = this.state.pickerValue;
+        var id        = this.props.id;
+        var authToken = this.props.authToken;
+        // @TODO Axios POST
+
         // Close modal.
         this.props.toggle();
     }

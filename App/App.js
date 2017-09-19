@@ -204,7 +204,7 @@ class App extends Component {
       } else {
           if (this.state.authenticated) {
               return (
-                  <Homepage />
+                  <Homepage authToken={this.state.authToken} />
               );
           } else {
               return (

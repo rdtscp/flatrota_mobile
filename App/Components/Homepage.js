@@ -30,7 +30,7 @@ class Homepage extends Component {
   }
 
   componentDidMount() {
-    axios.post('http://192.168.1.121:1337/resource/all')
+    axios.post('http://localhost:1337/resource/all')
     .then((response) => {
       res = response.data;
       console.log('resources:')
@@ -52,7 +52,7 @@ class Homepage extends Component {
 
     if (this.state.resources) {
       const itemList = this.state.resources.map((item) =>
-          <Item key={item.id} item={item} />
+          <Item key={item.id} item={item} authToken={this.props.authToken} />
       );
       return (
         <View style={{backgroundColor: "black", flex: 1}}>
@@ -101,7 +101,7 @@ class NewItem extends Component {
     // Send network request.
     Alert.alert('Name: ' + this.state.name + '\nPrice: £' + this.state.price + '\nDesc: ' + this.state.description + '\nQuantity: ' + this.state.quantity);
     // Post our authToken to the backend.
-    axios.post('http://192.168.1.121:1337/resource/new', {
+    axios.post('http://localhost:1337/resource/new', {
         name: this.state.name,
         price: this.state.price,
         desc: this.state.description,
