@@ -29,7 +29,7 @@ class Item extends Component {
 
   requestTopup = () => {
       var id = this.props.item._id;
-      axios.post('http://localhost:1337/resource/runout', {
+      axios.post('http://192.168.1.121:1337/resource/runout', {
         id: id
       })
       .then((response) => {
@@ -93,7 +93,7 @@ class ItemTopup extends Component {
         var id        = this.props.id;
         var authToken = this.props.authToken;
         // @TODO Axios POST
-        axios.post('http://localhost:1337/resource/topup', {
+        axios.post('http://192.168.1.121:1337/resource/topup', {
             authToken: authToken,
             id: id,
             quantity: quantity

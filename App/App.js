@@ -44,22 +44,20 @@ class App extends Component {
         // Get our authToken.
         AsyncStorage.getItem('authToken', (err, authToken) => {
             if (err) console.log(err);
-            if (authToken) {
-                // var authToken = JSON.parse(authToken);
-                // If we have a token.
-                if (authToken !== null){
-                    this.setState({
-                        authToken: authToken
-                    });
-                    this.checkToken(authToken);
-                    this.handleSocket(authToken);
-                // Else Login.
-                } else {
-                    this.setState({
-                        loading: false,
-                        authenticated: false
-                    });
-                }
+            // var authToken = JSON.parse(authToken);
+            // If we have a token.
+            if (authToken !== null){
+                this.setState({
+                    authToken: authToken
+                });
+                this.checkToken(authToken);
+                this.handleSocket(authToken);
+            // Else Login.
+            } else {
+                this.setState({
+                    loading: false,
+                    authenticated: false
+                });
             }
         });
     }
@@ -69,7 +67,7 @@ class App extends Component {
         // Schedule a check for every 1 second.
         var tokenCheck = setInterval(() => {
             // Post our authToken to the backend.
-            axios.post('http://localhost:1337/token', {
+            axios.post('http://192.168.1.121:1337/token', {
                 authToken: authToken
             })
             .then((response) => {
@@ -95,7 +93,7 @@ class App extends Component {
     // Will handle connection to socket, and receiving of notifications.
     handleSocket = (authToken) => {
         console.log('tryConnectSocket')
-        var socket = SocketIOClient('http://localhost:1337');
+        var socket = SocketIOClient('http://192.168.1.121:1337');
         socket.on('connect', () => {
             socket.emit('login', authToken);
         });
@@ -110,7 +108,7 @@ class App extends Component {
 
     // Posts Login details to backend.
     login = (username, password) => {
-        axios.post('http://localhost:1337/login', {
+        axios.post('http://192.168.1.121:1337/login', {
             username: username,
             password: password
         })
@@ -151,7 +149,7 @@ class App extends Component {
   
     // Posts Register details to backend.
     register = (username, password) => {
-        axios.post('http:localhost:1337/register', {
+        axios.post('http:192.168.1.121:1337/register', {
             username: username,
             password: password
         })
