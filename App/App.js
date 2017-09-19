@@ -97,14 +97,15 @@ class App extends Component {
         });
         socket.on('inc_notif', (data) => {
             PushNotification.localNotification({
-                message: data
+                message: data.msg
             });
+            socket.emit('received_notif', data);
         })
     }
 
     // Posts Login details to backend.
     login = (username, password) => {
-        axios.post('http:localhost:1337/login', {
+        axios.post('http://localhost:1337/login', {
             username: username,
             password: password
         })
