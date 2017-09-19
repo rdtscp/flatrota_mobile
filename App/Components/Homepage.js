@@ -30,6 +30,10 @@ class Homepage extends Component {
   }
 
   componentDidMount() {
+    this.fetchResources();
+  }
+
+  fetchResources() {
     axios.post('http://localhost:1337/resource/all')
     .then((response) => {
       res = response.data;
@@ -39,13 +43,14 @@ class Homepage extends Component {
         resources: res
       });
       console.log(this.state)
-    })
+    }).catch((err) => console.log(err));
   }
 
   toggleModal = () => {
     this.setState(previousState => {
       return { modalVisible: !previousState.modalVisible };
     });
+    this.fetchResources();
   }
 
   render() {
@@ -99,7 +104,7 @@ class NewItem extends Component {
 
   create() {
     // Send network request.
-    Alert.alert('Name: ' + this.state.name + '\nPrice: £' + this.state.price + '\nDesc: ' + this.state.description + '\nQuantity: ' + this.state.quantity);
+    // Alert.alert('Name: ' + this.state.name + '\nPrice: £' + this.state.price + '\nDesc: ' + this.state.description + '\nQuantity: ' + this.state.quantity);
     // Post our authToken to the backend.
     axios.post('http://localhost:1337/resource/new', {
         name: this.state.name,
@@ -121,7 +126,7 @@ class NewItem extends Component {
         throw err;
     })
     // Close modal.
-    //this.close();
+    this.close();
   }
 
   close() {
