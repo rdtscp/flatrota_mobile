@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import {
   Alert,
@@ -15,6 +16,10 @@ import Login from './Components/Login.js';
 import Homepage from './Components/Homepage.js';
 import axios from 'axios';
 
+import SocketIOClient from 'socket.io-client';
+import PushNotification from 'react-native-push-notification'
+
+
 console.disableYellowBox = true;
 
 class App extends Component {
@@ -29,22 +34,32 @@ class App extends Component {
     }
   
     componentDidMount() {
+        // Configure Notifications.
+        PushNotification.configure({
+            onNotification: function(notification) {
+                console.log( 'NOTIFICATION:', notification );
+            },
+            requestPermissions: true,
+        })
         // Get our authToken.
         AsyncStorage.getItem('authToken', (err, authToken) => {
             if (err) console.log(err);
-            var authToken = JSON.parse(authToken);
-            // If we have a token.
-            if (authToken !== null){
-                this.setState({
-                    authToken: authToken
-                });
-                this.checkToken(authToken);
-            // Else Login.
-            } else {
-                this.setState({
-                    loading: false,
-                    authenticated: false
-                });
+            if (authToken) {
+                // var authToken = JSON.parse(authToken);
+                // If we have a token.
+                if (authToken !== null){
+                    this.setState({
+                        authToken: authToken
+                    });
+                    this.checkToken(authToken);
+                    this.handleSocket(authToken);
+                // Else Login.
+                } else {
+                    this.setState({
+                        loading: false,
+                        authenticated: false
+                    });
+                }
             }
         });
     }
@@ -69,8 +84,22 @@ class App extends Component {
             })
             .catch((err) => {
                 throw err;
-            })
+            });
         }, 1000);
+    }
+
+    // Will handle connection to socket, and receiving of notifications.
+    handleSocket = (authToken) => {
+        console.log('tryConnectSocket')
+        var socket = SocketIOClient('http://localhost:1337');
+        socket.on('connect', () => {
+            socket.emit('login', authToken);
+        });
+        socket.on('inc_notif', (data) => {
+            PushNotification.localNotification({
+                message: data
+            });
+        })
     }
 
     // Posts Login details to backend.
