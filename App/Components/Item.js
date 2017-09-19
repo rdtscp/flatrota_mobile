@@ -30,10 +30,11 @@ class Item extends Component {
   requestTopup = () => {
       var id = this.props.item._id;
       axios.post('http://192.168.1.121:1337/resource/runout', {
-        id: id
+        id: id,
+        authToken: this.props.authToken
       })
       .then((response) => {
-        Alert.alert('Flatmate has been sent a notification!');
+          if (response.data.msg) Alert.alert(response.data.msg);
       })
       .catch((err) => {
           Alert.alert('Error contacting server.');

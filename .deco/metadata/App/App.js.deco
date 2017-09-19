@@ -8,7 +8,7 @@
 				},
 				"to": {
 					"line": 49,
-					"ch": 40
+					"ch": 31
 				}
 			},
 			"editWith": "dropdown",
@@ -25,7 +25,7 @@
 				},
 				"to": {
 					"line": 50,
-					"ch": 44
+					"ch": 40
 				}
 			},
 			"editWith": "dropdown",
@@ -73,7 +73,7 @@
 				},
 				"to": {
 					"line": 54,
-					"ch": 32
+					"ch": 26
 				}
 			},
 			"editWith": "colorPicker",
