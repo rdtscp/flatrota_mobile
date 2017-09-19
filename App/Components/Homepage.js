@@ -34,7 +34,7 @@ class Homepage extends Component {
   }
 
   fetchResources() {
-    axios.post('http://localhost:1337/resource/all')
+    axios.post('http://192.168.1.121:1337/resource/all')
     .then((response) => {
       res = response.data;
       console.log('resources:')
@@ -106,7 +106,7 @@ class NewItem extends Component {
     // Send network request.
     // Alert.alert('Name: ' + this.state.name + '\nPrice: £' + this.state.price + '\nDesc: ' + this.state.description + '\nQuantity: ' + this.state.quantity);
     // Post our authToken to the backend.
-    axios.post('http://localhost:1337/resource/new', {
+    axios.post('http://192.168.1.121:1337/resource/new', {
         name: this.state.name,
         price: this.state.price,
         desc: this.state.description,
