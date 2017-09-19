@@ -79,6 +79,10 @@ class App extends Component {
                     loading: false,
                     authenticated: res.valid
                 });
+                // Remove token if required.
+                if (!res.valid) {
+                    AsyncStorage.removeItem('authToken');
+                }
                 // Stop trying to check authToken.
                 clearInterval(tokenCheck)
             })
