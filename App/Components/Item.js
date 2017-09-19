@@ -10,6 +10,8 @@ import {
   Picker,
 } from 'react-native'
 
+import axios from 'axios';
+
 class Item extends Component {
 
   constructor(props) {
@@ -25,8 +27,17 @@ class Item extends Component {
       });
   }
 
-  requestTopup() {
-      Alert.alert('Flatmate has been sent a notification!');
+  requestTopup = () => {
+      var id = this.props.item._id;
+      axios.post('http://localhost:1337/resource/runout', {
+        id: id
+      })
+      .then((response) => {
+        Alert.alert('Flatmate has been sent a notification!');
+      })
+      .catch((err) => {
+          Alert.alert('Error contacting server.');
+      })
   }
 
   infoPopup = () => {
@@ -82,6 +93,18 @@ class ItemTopup extends Component {
         var id        = this.props.id;
         var authToken = this.props.authToken;
         // @TODO Axios POST
+        axios.post('http://localhost:1337/resource/topup', {
+            authToken: authToken,
+            id: id,
+            quantity: quantity
+        })
+        .then((response) => {
+            res = response.data;
+            Alert.alert(res.msg);
+        })
+        .catch((err) => {
+            throw err;
+        });
 
         // Close modal.
         this.props.toggle();
