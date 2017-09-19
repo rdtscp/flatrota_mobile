@@ -97,8 +97,9 @@ class App extends Component {
         });
         socket.on('inc_notif', (data) => {
             PushNotification.localNotification({
-                message: data.msg
+                message: 'It is your turn to buy: \n' + data.quantity + ' of ' + data.resource
             });
+            Alert.alert('It is your turn to buy: \n' + data.quantity + ' of ' + data.resource);
             socket.emit('received_notif', data);
         })
     }
